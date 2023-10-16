@@ -58,7 +58,7 @@ namespace dsa_jamro
                         Console.WriteLine();
                         break;
                     case 4:
-                        ArraySorter.SelectionInputCollector();
+                        ArraySorter.Cli();
                         Console.WriteLine();
                         break;
                     case 80:

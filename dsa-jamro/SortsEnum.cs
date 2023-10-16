@@ -2,6 +2,6 @@
 {
     enum SortsEnum
     {
-        Selection,
+        Selection = 0,
     }
 }
