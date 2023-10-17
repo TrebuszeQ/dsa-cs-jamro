@@ -23,9 +23,10 @@ namespace dsa_jamro
                 }
 
                 sortInput:
+                Console.WriteLine();
                 Console.WriteLine("Type number of desirable sort algorithm");
                 PrintEnums();
-                
+                Console.WriteLine();
                 input = Console.ReadLine();
                 
                 bool truth = int.TryParse(input, out intInput);
@@ -34,11 +35,13 @@ namespace dsa_jamro
                 switch(selection)
                 {
                     case 1:
-                        Console.WriteLine(enumArr[intInput - 1]);
+                        Console.WriteLine();
+                        Console.WriteLine(enumArr[intInput - 1] + " sorted:");
                         int[] result = SelectionSort(array);
                         PrintArray(result);
                     return;
                     default:
+                        Console.WriteLine();
                         Console.WriteLine("Wrong input.");
                         goto sortInput;
                 }
@@ -53,7 +56,7 @@ namespace dsa_jamro
             string[] enumArr = Enum.GetNames(typeof(SortsEnum));
             foreach (var sorting in enumArr) 
             {
-                if (enumArr.Length -1 == c) Console.WriteLine($"{c}. {sorting}.");
+                if (enumArr.Length - 1 == c) Console.WriteLine($"{c}. {sorting}.");
                 else Console.WriteLine($"{c}. {sorting} sort.");
                 c++;
             }
@@ -89,20 +92,23 @@ namespace dsa_jamro
         // performs selection sort algorithm on the InputArray
         static public int[] SelectionSort(int[] array)
         {
-            int i = 0;
-            int j = 0;
-            for(; i < array.Length - 1; i++) 
+            for(int i = 0; i < array.Length - 1; i++) 
             {
-                int head = array[i];
-                int temp = head;
-                for (; j  < array.Length; j++)
+                int min = array[i];
+                int temp;
+                int pos = i;
+                for (int j = i + 1; j  < array.Length; j++)
                 {
-                    int indice = array[j];
-                    if (indice < head) head = indice;
+                    
+                    if (array[j] < min) 
+                    {
+                        min = array[j];
+                        pos = j;
+                    }
                 }
                 temp = array[i];
-                array[i] = head;
-                array[j] = temp;
+                array[i] = min;
+                array[pos] = temp;
             }
             return array;
         }
@@ -111,16 +117,14 @@ namespace dsa_jamro
         // prints array from argument
         public static void PrintArray(int[] array)
         {
+            int c = 0;
+            foreach(int indice in array)
             {
-                int c = 0;
-                foreach(int indice in array)
-                {
-                    if(c != array.Length - 1) Console.Write($"{indice}  ,");
-                    else Console.Write($"{indice}.");
-                    c++;
-                }
-                Console.WriteLine();
+                if(c != array.Length - 1) Console.Write($"{indice}, ");
+                else Console.Write($"{indice}.");
+                c++;
             }
+            Console.WriteLine();
         }
     }
 }

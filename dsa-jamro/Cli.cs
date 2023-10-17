@@ -22,10 +22,12 @@ namespace dsa_jamro
                 Console.WriteLine("90. Exit program.");
                 string? input = Console.ReadLine();
                 if(input != null) input = input.Replace(" ", "");
+                Console.WriteLine();
                 Console.WriteLine($"Entered {input}.");
                 int? intInput;
                 if (input.Length == 0)
                 {
+                    Console.WriteLine();
                     Console.WriteLine("Wrong input");
                     goto input;
                 }
@@ -35,6 +37,7 @@ namespace dsa_jamro
                 }
                 catch (Exception e)
                 {
+                    Console.WriteLine();
                     Console.WriteLine("Wrong input");
                     Console.WriteLine(e.Message);
                     goto input;
