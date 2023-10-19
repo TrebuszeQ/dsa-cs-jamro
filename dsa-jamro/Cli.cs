@@ -61,7 +61,7 @@ namespace dsa_jamro
                         Console.WriteLine();
                         break;
                     case 4:
-                        ArraySorter.Cli();
+                        SortingCli.InputLoop();
                         Console.WriteLine();
                         break;
                     case 80:
@@ -86,5 +86,8 @@ namespace dsa_jamro
             system("dotnet run"); 
             return true;
         }
+
+        // cli that collects input and does things with it, 
+        // eventually calls to methods to sort and print input
     }
 }
