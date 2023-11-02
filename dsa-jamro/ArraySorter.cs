@@ -1,145 +1,65 @@
 namespace dsa_jamro
 {
-    internal static class ArraySorter
+    internal class ArraySorter
     {
-        private static int[]? InputArray {get; set;}
-
-
-        public static void Cli()
-        {
-            int selection = 0;
-    
-            do
-            {
-                Console.WriteLine("Choose selection methods number.");
-                selection = SelectionInputCollector();
-                bool truth = InputChecker(input);
-
-            } while (true);
-        }
-
-            // collects input to determine which selection is chosen.
-            private static int SelectionInputCollector()
-        {
-            string[] enumArr = Enum.GetNames(typeof(SortsEnum));
-            int intInput;
-            do
-            {
-                Console.WriteLine("Choose selection methods number.");
-                int c = 1;
-                foreach (var sorting in enumArr) 
-                {
-                    if (enumArr.Length -1 == c) Console.WriteLine($"{c}. {sorting}.");
-                    else Console.WriteLine($"{c}. {sorting}");
-                    c++;
-                }
-                string? input = Console.ReadLine();
-                
-                bool truth = int.TryParse(input, out intInput);
-                if (truth && (intInput <= enumArr.Length && intInput >= 1))
-                {
-                    Console.WriteLine(enumArr[intInput]);
-                    return intInput;
-                }
-                else Console.WriteLine("Wrong input.");
-            } while (true);
-        }
-
-
-        public static void PrintEnums()
-        {
-            foreach (var sorting in enumArr) 
-                {
-                    if (enumArr.Length -1 == c) Console.WriteLine($"{c}. {sorting}.");
-                    else Console.WriteLine($"{c}. {sorting}");
-                    c++;
-                }
-        }
-
-
-        // collects input of array of ints.
-        private static bool ArrayInputCollector()
-        {
-            do
-            {
-                Console.WriteLine("Provide from 1 to 10 integer digits separated by comma.");
-                string? input = Console.ReadLine();
-                bool truth = InputChecker(input);
-                if (truth) return true;
-                else Console.WriteLine("Wrong input.");
-            } while (true);
-        }
-
-
-        // checks if input is correct, if not returns false. 
-        // if correct it initializes and/or populates InputArray
-        private static bool InputChecker(string? input)
-        {
-            if(input == null || input.Length == 0) return false;
-            input = input.Replace(" ", "");
-            string[] arr = input.Split(',', StringSplitOptions.RemoveEmptyEntries);
-            int[] resArr = new int[arr.Length];
-            int c = 0;
-            foreach(string indice in arr)
-            {
-                if(c == 9) break;
-                int result;
-                // intInput = Convert.ToInt32(input);
-                bool truth = int.TryParse(indice, out result);
-                if(truth) resArr[c] = result;
-                else if(!truth) return false;
-                c++;
-            }
-
-            InputArray = resArr;
-            return true;
-        }
-
-
         // performs selection sort algorithm on the InputArray
-        static public int[] SelectionSort()
+        public static int[] SelectionSort(int[] array)
         {
-            int c = 0;
-            int i = 0;
-            int j = 0;
-            int[] result = InputArray!;
-            for(; i < result.Length; i++) 
+            for(int i = 0; i < array.Length - 1; i++) 
             {
-                int minValue = result[i];
-                int temp = minValue;
-                for (; j  < result.Length; j++)
+                int min = array[i];
+                int temp;
+                int pos = i;
+                for (int j = i + 1; j  < array.Length; j++)
                 {
-                    int indice = result[j];
-                    if (minValue > indice)
+                    
+                    if (array[j].CompareTo(min) < 0) 
                     {
-                        indice = temp;
-                        minValue = indice;
+                        min = array[j];
+                        pos = j;
                     }
                 }
-                result[i] = minValue;
-                result[j] = result[i];
+                temp = array[i];
+                array[i] = min;
+                array[pos] = temp;
             }
-            return result;
+            return array;
         }
 
-
-        // prints input array
-        private static bool PrintInputArray()
-        {
-            if(InputArray != null)
+    public static T[] SelectionSortG<T> (T[] array) where T : IComparable
             {
-                int c = 0;
-                foreach(int indice in InputArray!)
+                for(int i = 0; i < array.Length - 1; i++) 
                 {
-                    if(c != InputArray.Length - 1) Console.Write($"{indice}  ,");
-                    else Console.Write($"{indice}.");
-                    c++;
+                    T min = array[i];
+                    T temp;
+                    int pos = i;
+                    for (int j = i + 1; j  < array.Length; j++)
+                    {
+                        
+                        if (array[j].CompareTo(min) < 0) 
+                        {
+                            min = array[j];
+                            pos = j;
+                        }
+                    }
+                    temp = array[i];
+                    array[i] = min;
+                    array[pos] = temp;
                 }
-                Console.WriteLine();
-                return true;
+                return array;
             }
-            Console.WriteLine("Array coudln't been printed.");
-            return false;
+
+        // prints array from argument
+        public static void PrintArray(int[] array)
+        {
+            int c = 0;
+            foreach(int indice in array)
+            {
+                if(c != array.Length - 1) Console.Write($"{indice}, ");
+                else Console.Write($"{indice}.");
+                c++;
+            }
+            Console.WriteLine();
         }
     }
 }
