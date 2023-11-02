@@ -2,6 +2,7 @@
 {
     enum SortsEnum
     {
+        Insertion,
         Selection,
     }
 }
